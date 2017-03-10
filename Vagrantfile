@@ -28,7 +28,7 @@ Vagrant.configure(2) do |config|
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8888" will access port 8888 on the guest machine.
-  config.vm.network "forwarded_port", guest: 8888, host: 8888
+  config.vm.network "forwarded_port", guest: 8800, host: 8800
   config.vm.network "forwarded_port", guest: 50000, host: 50000
 
   # Create a private network, which allows host-only access to the machine
@@ -120,21 +120,8 @@ Vagrant.configure(2) do |config|
 
     PATH=${vagrant_scripts_dir}:${jenkins_scripts_dir}:$PATH
 
-    install-ssl-certificates.sh
-
-    cat <<EOF >> /etc/yum.conf
-proxy = ${http_proxy}
-EOF
-
     echo "installing packages ${base_packages}"
     yum install -y -q ${base_packages}
-
-    # Configuring the docker daemon to get through the proxy as mentioned here:
-    # https://docs.docker.com/engine/admin/systemd#http-proxy
-    mkdir -p ${DOCKER_SERVICE_LOCATION}
-    sed -r "s;HTTP_PROXY=;HTTP_PROXY=${http_proxy};" /vagrant/cfg/docker/http-proxy.conf > ${DOCKER_SERVICE_LOCATION}/http-proxy.conf
-
-    configure-docker.sh
 
     groupmod --gid ${DOCKER_GROUP_GID} docker
 

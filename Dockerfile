@@ -11,6 +11,12 @@ ENV JAVA_OPTS="-Duser.timezone=America/Toronto"\
 # setup additional package repositories
 RUN curl -SL --silent https://deb.nodesource.com/setup_6.x | bash -
 
+# setup additional package repositories
+RUN apt-get update -qq && \
+    apt-get autoremove -q -y && \
+    apt-get install -q -y nodejs python-pip && \
+    rm -rf /var/lib/apt/lists/*
+
 # install nodeglobal node packages
 RUN npm install --global phantomjs-prebuilt \
     gulp \
