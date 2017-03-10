@@ -85,7 +85,7 @@ Vagrant.configure(2) do |config|
   environment_vars = {
     "jenkins_scripts_dir" => '/jenkins-scripts',
     "DEVOPS_JENKINS_HOME" => '/home/vagrant/jenkins_home',
-    "DEVOPS_JENKINS_HTTP_PORT" => 8080,
+    "DEVOPS_JENKINS_HTTP_PORT" => 8800,
     "DEVOPS_JENKINS_SLAVE_PORT" => 50888,
     "DOCKER_SERVICE_LOCATION" => "/etc/systemd/system/docker.service.d",
     "DOCKER_GROUP_GID" => 204,
